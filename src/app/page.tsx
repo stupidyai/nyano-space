@@ -35,10 +35,7 @@ export default function Home() {
                 <div className="absolute inset-0 border-2 border-dashed border-primary/30 rounded-full animate-drift"></div>
                 <div className="text-8xl">🎙️</div>
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 text-white shadow-xl z-0">
-                <div className="text-3xl font-bold">500+</div>
-                <div className="text-sm opacity-90">Couples Served</div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -83,16 +80,7 @@ export default function Home() {
               <p className="text-lg text-gray-600 leading-relaxed">
                 From the quiet reflections before your wedding to the shared wisdom of years spent together, we document the evolution of your love so you can relive those precious moments forever.
               </p>
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">5+</div>
-                  <div className="text-gray-500">Years Experience</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">1000+</div>
-                  <div className="text-gray-500">Videos Created</div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -141,7 +129,10 @@ export default function Home() {
             </div>
             <div>
               <h4 className="font-bold mb-4">Contact</h4>
-              <Link href="/contact" className="text-gray-400 hover:text-primary transition-colors">nyanospace@gmail.com</Link>
+              <div className="flex flex-col space-y-2">
+                <Link href="/contact" className="text-gray-400 hover:text-primary transition-colors">nyanospace@gmail.com</Link>
+                <a href="https://maps.app.goo.gl/dESE645toJWz4LCy8" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">View on Google Maps</a>
+              </div>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-gray-500">

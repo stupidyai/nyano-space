@@ -110,12 +110,15 @@ const ContactClient = () => {
               </div>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-gray-400">Official Email & Phone</h3>
+              <h3 className="text-xs font-black uppercase tracking-widest text-gray-400">Contact Details</h3>
               <a href="mailto:nyanospace@gmail.com" className="text-xl font-bold text-foreground hover:text-primary transition-colors block">
                 nyanospace@gmail.com
               </a>
               <a href="tel:6364913348" className="text-xl font-bold text-foreground hover:text-primary transition-colors block">
                 +91 6364913348
+              </a>
+              <a href="https://maps.app.goo.gl/dESE645toJWz4LCy8" target="_blank" rel="noopener noreferrer" className="text-xl font-bold text-foreground hover:text-primary transition-colors block">
+                View on Google Maps
               </a>
             </div>
           </div>

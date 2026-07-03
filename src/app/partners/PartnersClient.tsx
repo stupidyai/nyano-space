@@ -12,7 +12,8 @@ export default function PartnersClient() {
       icon: "👗",
       isFeatured: true,
       color: "from-rose-500/10 to-pink-500/10",
-      borderColor: "border-primary/20"
+      borderColor: "border-primary/20",
+      link: "https://ramavasthra.vercel.app/"
     },
     {
       title: "Wedding Cooks & Caterers",
@@ -192,10 +193,11 @@ export default function PartnersClient() {
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-            {partners.map((partner, idx) => (
+            {partners.map((partner: any, idx) => (
               <Link 
                 key={idx}
-                href="/contact"
+                href={partner.link || "/contact"}
+                {...(partner.link ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className={`group relative rounded-[40px] p-8 md:p-10 border-2 ${partner.borderColor} bg-gradient-to-br ${partner.color} transition-all hover:shadow-2xl hover:-translate-y-2 overflow-hidden flex flex-col ${partner.isFeatured ? 'lg:col-span-2 lg:flex-row gap-8 items-center' : ''}`}
               >
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-white/40 blur-3xl rounded-full -mr-10 -mt-10 group-hover:bg-white/60 transition-colors`} />
@@ -217,7 +219,7 @@ export default function PartnersClient() {
                     {partner.description}
                   </p>
                   <div className="pt-4 flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-sm group-hover:gap-4 transition-all">
-                    Partner with us <span>→</span>
+                    {partner.link ? 'Visit Website' : 'Partner with us'} <span>→</span>
                   </div>
                 </div>
               </Link>
