@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  --animate-float: float 20s ease-in-out infinite;
+  --animate-breathe: breathe 8s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 12s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(-10px) translateX(-15px); }
+    75% { transform: translateY(-30px) translateX(5px); }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.5; }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+  }
+}
+
+:root {
+  background-color: #0a0f12;
+  color: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Custom transition for background color if needed */
+.bg-mesh {
+  background-color: #0a0f12;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(180, 50%, 10%, 1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(220, 40%, 15%, 1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(280, 30%, 10%, 1) 0, transparent 50%);
+}
