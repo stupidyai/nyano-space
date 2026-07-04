@@ -13,7 +13,6 @@ interface TimelineEventInput {
   description: string;
   event_type: string;
   instagram_url: string;
-  tiktok_url: string;
 }
 
 export default function AdminDashboard() {
@@ -30,14 +29,12 @@ export default function AdminDashboard() {
   const [weddingDate, setWeddingDate] = useState('');
   
   const [femaleInstagram, setFemaleInstagram] = useState('@nyanospace');
-  const [femaleTiktok, setFemaleTiktok] = useState('@inyanospace');
   const [femaleX, setFemaleX] = useState('@nyanospace');
   const [maleInstagram, setMaleInstagram] = useState('@nyanospace');
-  const [maleTiktok, setMaleTiktok] = useState('@inyanospace');
   const [maleX, setMaleX] = useState('@nyanospace');
 
   const [events, setEvents] = useState<TimelineEventInput[]>([
-    { title: 'How we met', event_date: '', description: '', event_type: 'met', instagram_url: 'https://www.instagram.com/nyanospace/', tiktok_url: '' }
+    { title: 'How we met', event_date: '', description: '', event_type: 'met', instagram_url: 'https://www.instagram.com/nyanospace/' }
   ]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
@@ -80,10 +77,8 @@ export default function AdminDashboard() {
       setMaleName(couple.male_name);
       setWeddingDate(couple.wedding_date);
       setFemaleInstagram(couple.female_instagram || '');
-      setFemaleTiktok(couple.female_tiktok || '');
       setFemaleX(couple.female_x || '');
       setMaleInstagram(couple.male_instagram || '');
-      setMaleTiktok(couple.male_tiktok || '');
       setMaleX(couple.male_x || '');
       
       const { data: timelineEvents, error: eventsError } = await supabase
@@ -99,8 +94,7 @@ export default function AdminDashboard() {
           event_date: e.event_date,
           description: e.description,
           event_type: e.event_type,
-          instagram_url: e.instagram_url || 'https://www.instagram.com/nyanospace/',
-          tiktok_url: e.tiktok_url || ''
+          instagram_url: e.instagram_url || 'https://www.instagram.com/nyanospace/'
         })));
       }
     }
@@ -113,16 +107,14 @@ export default function AdminDashboard() {
     setMaleName('');
     setWeddingDate('');
     setFemaleInstagram('@nyanospace');
-    setFemaleTiktok('@inyanospace');
     setFemaleX('@nyanospace');
     setMaleInstagram('@nyanospace');
-    setMaleTiktok('@inyanospace');
     setMaleX('@nyanospace');
-    setEvents([{ title: 'How we met', event_date: '', description: '', event_type: 'met', instagram_url: 'https://www.instagram.com/nyanospace/', tiktok_url: '' }]);
+    setEvents([{ title: 'How we met', event_date: '', description: '', event_type: 'met', instagram_url: 'https://www.instagram.com/nyanospace/' }]);
   };
 
   const addEvent = () => {
-    setEvents([...events, { title: '', event_date: '', description: '', event_type: '', instagram_url: 'https://www.instagram.com/nyanospace/', tiktok_url: '' }]);
+    setEvents([...events, { title: '', event_date: '', description: '', event_type: '', instagram_url: 'https://www.instagram.com/nyanospace/' }]);
   };
 
   const updateEvent = (index: number, field: keyof TimelineEventInput, value: string) => {
@@ -154,10 +146,8 @@ export default function AdminDashboard() {
             wedding_date: weddingDate,
             slug: slug,
             female_instagram: femaleInstagram,
-            female_tiktok: femaleTiktok,
             female_x: femaleX,
             male_instagram: maleInstagram,
-            male_tiktok: maleTiktok,
             male_x: maleX,
           })
           .eq('id', selectedCoupleId);
@@ -172,10 +162,8 @@ export default function AdminDashboard() {
             wedding_date: weddingDate,
             slug: slug,
             female_instagram: femaleInstagram,
-            female_tiktok: femaleTiktok,
             female_x: femaleX,
             male_instagram: maleInstagram,
-            male_tiktok: maleTiktok,
             male_x: maleX,
           })
           .select()
@@ -198,7 +186,6 @@ export default function AdminDashboard() {
           description: e.description,
           event_type: e.event_type,
           instagram_url: e.instagram_url,
-          tiktok_url: e.tiktok_url,
           order: index
         }));
 
@@ -384,16 +371,6 @@ export default function AdminDashboard() {
                       />
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-bold text-gray-400 w-20">TikTok</span>
-                      <input
-                        type="text"
-                        value={femaleTiktok}
-                        onChange={(e) => setFemaleTiktok(e.target.value)}
-                        placeholder="@username"
-                        className="flex-1 px-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-secondary/10"
-                      />
-                    </div>
-                    <div className="flex items-center gap-3">
                       <span className="text-xs font-bold text-gray-400 w-20">X (Twitter)</span>
                       <input
                         type="text"
@@ -419,16 +396,6 @@ export default function AdminDashboard() {
                         type="text"
                         value={maleInstagram}
                         onChange={(e) => setMaleInstagram(e.target.value)}
-                        placeholder="@username"
-                        className="flex-1 px-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/10"
-                      />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-bold text-gray-400 w-20">TikTok</span>
-                      <input
-                        type="text"
-                        value={maleTiktok}
-                        onChange={(e) => setMaleTiktok(e.target.value)}
                         placeholder="@username"
                         className="flex-1 px-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/10"
                       />
@@ -513,16 +480,6 @@ export default function AdminDashboard() {
                         value={event.instagram_url}
                         onChange={(e) => updateEvent(index, 'instagram_url', e.target.value)}
                         placeholder="https://www.instagram.com/..."
-                        className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-500 uppercase">TikTok Link</label>
-                      <input
-                        type="url"
-                        value={event.tiktok_url}
-                        onChange={(e) => updateEvent(index, 'tiktok_url', e.target.value)}
-                        placeholder="https://www.tiktok.com/..."
                         className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10"
                       />
                     </div>

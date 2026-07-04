@@ -91,7 +91,6 @@ export default function RootLayout({
       "https://x.com/nyanospace",
       "https://www.linkedin.com/in/na-madhu-m/",
       "https://www.instagram.com/nyanospace/",
-      "https://www.tiktok.com/@inyanospace",
       "https://www.youtube.com/@nyanospace"
     ],
     "contactPoint": {

@@ -13,7 +13,6 @@ interface TimelineEvent {
   description: string;
   event_type: string;
   instagram_url?: string;
-  tiktok_url?: string;
 }
 
 interface Couple {
@@ -23,13 +22,22 @@ interface Couple {
   wedding_date: string;
   slug: string;
   female_instagram?: string;
-  female_tiktok?: string;
   female_x?: string;
   male_instagram?: string;
-  male_tiktok?: string;
   male_x?: string;
   is_example?: boolean;
 }
+
+const formatSocialUrl = (input: string, platform: 'instagram' | 'x') => {
+  if (!input) return '';
+  if (input.startsWith('http://') || input.startsWith('https://')) {
+    return input;
+  }
+  const cleanInput = input.replace('@', '');
+  if (platform === 'instagram') return `https://instagram.com/${cleanInput}`;
+  if (platform === 'x') return `https://x.com/${cleanInput}`;
+  return input;
+};
 
 export default function CoupleTimeTreeClient() {
   const { slug } = useParams();
@@ -184,19 +192,6 @@ export default function CoupleTimeTreeClient() {
                           {new Date(event.event_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                         </div>
                         <div className="flex gap-2">
-                          {event.tiktok_url && (
-                            <a 
-                              href={event.tiktok_url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-white hover:text-[#00f2ea] transition-colors p-1"
-                              title="View on TikTok"
-                            >
-                              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-.1-.03-.1-.01-.5-.03-1-.03-1.5 0-2.11.8-4.17 2.22-5.71 1.44-1.56 3.47-2.5 5.59-2.61.01 4.02-.01 8.05.02 12.07.13.45.45.81.88 1.02.5.25 1.1.24 1.5-.09.43-.34.68-.88.64-1.43-.02-2.11-.01-4.21-.01-6.32 0-3.91-.01-7.81-.01-11.72z" />
-                              </svg>
-                            </a>
-                          )}
                           {event.instagram_url && (
                             <a 
                               href={event.instagram_url} 
@@ -245,7 +240,7 @@ export default function CoupleTimeTreeClient() {
               <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6">
                 {couple.female_instagram && (
                   <a 
-                    href={`https://instagram.com/${couple.female_instagram.replace('@', '')}`}
+                    href={formatSocialUrl(couple.female_instagram, 'instagram')}
                     target="_blank" rel="noopener noreferrer"
                     className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white/5 hover:bg-[#E1306C]/20 border border-white/10 hover:border-[#E1306C]/40 rounded-2xl transition-all duration-300 group/link"
                     title={`Instagram: ${couple.female_instagram}`}
@@ -255,21 +250,9 @@ export default function CoupleTimeTreeClient() {
                     </svg>
                   </a>
                 )}
-                {couple.female_tiktok && (
-                  <a 
-                    href={`https://tiktok.com/@${couple.female_tiktok.replace('@', '')}`}
-                    target="_blank" rel="noopener noreferrer"
-                    className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white/5 hover:bg-[#00f2ea]/20 border border-white/10 hover:border-[#00f2ea]/40 rounded-2xl transition-all duration-300 group/link"
-                    title={`TikTok: ${couple.female_tiktok}`}
-                  >
-                    <svg className="w-6 h-6 md:w-8 md:h-8 text-white/60 group-hover/link:text-[#00f2ea] transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-.1-.03-.1-.01-.5-.03-1-.03-1.5 0-2.11.8-4.17 2.22-5.71 1.44-1.56 3.47-2.5 5.59-2.61.01 4.02-.01 8.05.02 12.07.13.45.45.81.88 1.02.5.25 1.1.24 1.5-.09.43-.34.68-.88.64-1.43-.02-2.11-.01-4.21-.01-6.32 0-3.91-.01-7.81-.01-11.72z" />
-                    </svg>
-                  </a>
-                )}
                 {couple.female_x && (
                   <a 
-                    href={`https://x.com/${couple.female_x.replace('@', '')}`}
+                    href={formatSocialUrl(couple.female_x, 'x')}
                     target="_blank" rel="noopener noreferrer"
                     className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white/5 hover:bg-white/20 border border-white/10 hover:border-white/40 rounded-2xl transition-all duration-300 group/link"
                     title={`X (Twitter): ${couple.female_x}`}
@@ -293,7 +276,7 @@ export default function CoupleTimeTreeClient() {
               <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
                 {couple.male_instagram && (
                   <a 
-                    href={`https://instagram.com/${couple.male_instagram.replace('@', '')}`}
+                    href={formatSocialUrl(couple.male_instagram, 'instagram')}
                     target="_blank" rel="noopener noreferrer"
                     className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white/5 hover:bg-[#E1306C]/20 border border-white/10 hover:border-[#E1306C]/40 rounded-2xl transition-all duration-300 group/link"
                     title={`Instagram: ${couple.male_instagram}`}
@@ -303,21 +286,9 @@ export default function CoupleTimeTreeClient() {
                     </svg>
                   </a>
                 )}
-                {couple.male_tiktok && (
-                  <a 
-                    href={`https://tiktok.com/@${couple.male_tiktok.replace('@', '')}`}
-                    target="_blank" rel="noopener noreferrer"
-                    className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white/5 hover:bg-[#00f2ea]/20 border border-white/10 hover:border-[#00f2ea]/40 rounded-2xl transition-all duration-300 group/link"
-                    title={`TikTok: ${couple.male_tiktok}`}
-                  >
-                    <svg className="w-6 h-6 md:w-8 md:h-8 text-white/60 group-hover/link:text-[#00f2ea] transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-.1-.03-.1-.01-.5-.03-1-.03-1.5 0-2.11.8-4.17 2.22-5.71 1.44-1.56 3.47-2.5 5.59-2.61.01 4.02-.01 8.05.02 12.07.13.45.45.81.88 1.02.5.25 1.1.24 1.5-.09.43-.34.68-.88.64-1.43-.02-2.11-.01-4.21-.01-6.32 0-3.91-.01-7.81-.01-11.72z" />
-                    </svg>
-                  </a>
-                )}
                 {couple.male_x && (
                   <a 
-                    href={`https://x.com/${couple.male_x.replace('@', '')}`}
+                    href={formatSocialUrl(couple.male_x, 'x')}
                     target="_blank" rel="noopener noreferrer"
                     className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-white/5 hover:bg-white/20 border border-white/10 hover:border-white/40 rounded-2xl transition-all duration-300 group/link"
                     title={`X (Twitter): ${couple.male_x}`}
